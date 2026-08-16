@@ -882,6 +882,7 @@ gitx $VERSION
 
 Usage:
   gitx
+  gitx -x
   gitx --verbose
   gitx --quiet
   gitx --doctor
@@ -964,7 +965,11 @@ case "${1:-}" in
   --uninstall) uninstall_global ;;
   --version) printf '%s\n' "$VERSION" ;;
   --help | -h) show_help ;;
-  "") menu ;;
+  "")
+    doctor
+    menu
+    ;;
+  -x) menu ;;
   *)
     warn "Unknown option: $1"
     show_help
