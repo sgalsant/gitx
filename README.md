@@ -1,6 +1,6 @@
 # gitx
 
-`gitx` is an interactive Bash helper for a safer Git and GitHub workflow on WSL. It guides common tasks such as configuring Git, creating task branches, selecting files for commits, opening and merging pull requests, and publishing releases.
+`gitx` is an interactive helper for a safer Git and GitHub workflow. It includes a Bash version for WSL and a portable PowerShell version for Windows. Both guide common tasks such as configuring Git, creating task branches, selecting files for commits, opening and merging pull requests, and publishing releases.
 
 It is intended for developers who want the Git workflow to be explicit and repeatable without having to remember every command. It does not replace Git or GitHub CLI: it runs them with checks and confirmations before operations that affect branches, commits, remotes, or configuration.
 
@@ -9,6 +9,8 @@ It is intended for developers who want the Git workflow to be explicit and repea
 - WSL or another Bash environment
 - Git
 - GitHub CLI (`gh`) for GitHub authentication, pull requests, merges, and releases
+
+For Windows PowerShell, use `gitx.ps1`, PowerShell 5.1 or later, and Git for Windows. `gh` remains optional unless using GitHub-specific options.
 
 Run the diagnostic command to verify the local setup:
 
@@ -74,3 +76,29 @@ bash gitx-2.3.0.sh
 ```
 
 Add `-x` to skip the initial diagnostic, or use `bash gitx-2.3.0.sh --help` to display the available command-line options.
+
+### Windows PowerShell
+
+`gitx.ps1` is portable: keep it in any folder and run it directly. It does not install anything, alter `PATH`, or require administrator permissions. Its preferences and backups are stored only under `%LOCALAPPDATA%\gitx`.
+
+The PowerShell version starts with the diagnosis and a context panel. The panel shows the active branch, pending changes, Pull Request state when available, and the recommended next action. Press `R` from the menu to refresh it.
+
+From the folder containing the script, run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\gitx.ps1
+```
+
+The `Bypass` scope applies only to that process, so it does not change the machine execution policy. In PowerShell 7, the equivalent is:
+
+```powershell
+pwsh -ExecutionPolicy Bypass -File .\gitx.ps1
+```
+
+Use `-SkipDiagnosis` to open the menu immediately, or `-Help` to list the available non-interactive options:
+
+```powershell
+.\gitx.ps1 -Doctor
+.\gitx.ps1 -SetupGitignore
+.\gitx.ps1 -Help
+```
